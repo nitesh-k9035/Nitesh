@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alex Doe | Digital Portfolio Resume</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;700&display=swap');/* Reset and base styles */ *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { font-family: 'Karla', sans-serif; background: #1e1b29; color: #d8c7e3; min-height: 100vh; overflow-x: hidden; position: relative; }
+
+a { color: #8669a7; text-decoration: none; transition: color 0.3s ease; } a:hover { color: #b386ce; }
+
+header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(30, 27, 41, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #5c4d7d; padding: 1rem 2rem; z-index: 1000; display: flex; justify-content: space-between; align-items: center; color: #3a2c58; }
+
+header h1 { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 2rem; letter-spacing: 4px; cursor: default; color: #7d69a7; }
+
+nav ul { list-style: none; display: flex; gap: 2rem; }
+
+nav ul li a { font-weight: 700; font-size: 1.1rem; text-transform: uppercase; color: #6b5896; padding: 0.2rem 0; border-bottom: 2px solid transparent; transition: color 0.3s ease, border-bottom-color 0.3s ease; letter-spacing: 2px; }
+
+nav ul li a:hover, nav ul li a.active { color: #ac8ddd; border-bottom-color: #ac8ddd; }
+
+main { max-width: 900px; margin: 7rem auto 3rem; padding: 0 2rem; position: relative; z-index: 2; }
+
+section { margin-bottom: 5rem; opacity: 0; transform: translateY(40px); transition: opacity 1s ease, transform 1s ease; }
+
+section.visible { opacity: 1; transform: translateY(0); }
+
+/* Intro */ #intro { display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center; }
+
+#intro .profile-pic { flex: 0 0 180px; border-radius: 50%; overflow: hidden; border: 4px solid #ac8ddd; transition: transform 0.5s ease; }
+
+#intro .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+
+#intro .profile-pic:hover { transform: scale(1.05); }
+
+#intro .details { flex: 1 1 280px; }
+
+#intro .details h2 { font-family: 'Orbitron', monospace; font-size: 2.5rem; margin-bottom: 0.5rem; color: #7d69a7; }
+
+#intro .details p { font-size: 1.15rem; line-height: 1.6; color: #5a4a7c; }
+
+/* Section Titles */ h2.section-title { font-family: 'Orbitron', monospace; font-size: 2.2rem; margin-bottom: 1.5rem; color: #7f6fa7; }
+
+/* Resume items */ .resume-item { background: rgba(188, 173, 212, 0.2); border: 1px solid #af9ee6aa; padding: 1.4rem 1.8rem; border-radius: 15px; margin-bottom: 2rem; transition: background-color 0.3s ease; } .resume-item:hover { background-color: rgba(188, 173, 212, 0.3); }
+
+.resume-item h3 { font-weight: 700; font-size: 1.3rem; color: #6c579f; margin-bottom: 0.4rem; }
+
+.resume-item .date { font-style: italic; font-weight: 500; color: #7f6fa7; margin-bottom: 0.6rem; }
+
+.resume-item p { font-weight: 300; color: #5a4a7ccc; line-height: 1.5; }
+
+/* Skills */ .skill-name { font-weight: 700; color: #8c79b6; margin-bottom: 0.3rem; letter-spacing: 1.5px; }
+
+.skill-bar { background: #d6cfee; border-radius: 20px; height: 20px; overflow: hidden; margin-bottom: 1.6rem; }
+
+.skill-bar-fill { width: 0; height: 100%; background: linear-gradient(90deg, #ac8ddd, #bba8db); border-radius: 20px; transition: width 1.8s ease-in-out; }
+
+/* Contact */ #contact { padding: 2rem 1.8rem; background: rgba(188, 173, 212, 0.15); border-radius: 15px; max-width: 480px; margin: 0 auto 3rem; border: 1px solid #af9ee6aa; }
+
+#contact h2 { font-family: 'Orbitron', monospace; font-size: 2rem; color: #b19bd1; margin-bottom: 1.4rem; text-align: center; }
+
+#contact label { display: block; color: #5a4a7c; font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 1px; }
+
+#contact input, #contact textarea { width: 100%; padding: 0.85rem 1rem; border-radius: 12px; border: 2px solid #bba8db; background: #f0ebff; color: #4d3d75; font-size: 1.05rem; margin-bottom: 1.3rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; resize: vertical; }
+
+#contact input:focus, #contact textarea:focus { border-color: #bba8db; outline: none; background: #e5deff; }
+
+#contact button { width: 100%; background: linear-gradient(90deg, #bba8db, #ac8ddd); border: none; padding: 1rem 0; border-radius: 25px; font-weight: 700; color: #3a2c58; font-size: 1.2rem; cursor: pointer; transition: background 0.3s ease; }
+
+#contact button:hover { background: linear-gradient(270deg, #bba8db, #ac8ddd); }
+
+/* Footer */ footer { text-align: center; padding: 1.2rem 2rem; font-weight: 600; font-size: 0.9rem; color: #7f6fa7; border-top: 1px solid #bba8db; user-select: none; }
+
+/* Background Animation Canvas */ #background-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+/* Responsive */ @media (max-width: 768px) { #intro { flex-direction: column; text-align: center; } } </style>
+
+</head>
+<body><canvas id="background-canvas"></canvas>
+
+<header>
+  <h1>Alex Doe</h1>
+  <nav>
+    <ul>
+      <li><a href="#intro" class="active">Home</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header><main>
+  <section id="intro">
+    <div class="profile-pic" aria-label="Profile Picture">
+      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Alex Doe Profile Picture" />
+    </div>
+    <div class="details">
+      <h2>Welcome, I'm Alex</h2>
+      <p>I am a frontend developer and UX enthusiast, passionate about creating digital experiences with style, ease, and engaging animations. Here you can explore my resume and contact me for opportunities!</p>
+    </div>
+  </section>  <section id="education">
+    <h2 class="section-title">Education</h2>
+    <div class="resume-item">
+      <h3>BSc Computer Science</h3>
+      <div class="date">2015 - 2019 | University of Technology</div>
+      <p>Graduated with honors focusing on software engineering, UX design, and frontend technologies.</p>
+    </div>
+    <div class="resume-item">
+      <h3>Frontend Developer Certification</h3>
+      <div class="date">2020 | Online Bootcamp</div>
+      <p>Completed comprehensive training in web technologies, modern frameworks, and responsive design.</p>
+    </div>
+  </section>  <section id="experience">
+    <h2 class="section-title">Work Experience</h2>
+    <div class="resume-item">
+      <h3>Senior Frontend Developer - TechSolutions Inc.</h3>
+      <div class="date">2021 - Present</div>
+      <p>Leading frontend projects with React and Vue, driving performance, animation, and accessibility improvements.</p>
+    </div>
+    <div class="resume-item">
+      <h3>Frontend Developer - DigitalWorks</h3>
+      <div class="date">2019 - 2021</div>
+      <p>Created engaging web apps implementing modern CSS and JavaScript animations.</p>
+    </div>
+  </section>  <section id="skills">
+    <h2 class="section-title">Skills</h2><div>
+  <div class="skill-name">HTML</div>
+  <div class="skill-bar"><div class="skill-bar-fill" data-percent="95"></div></div>
+
+  <div class="skill-name">CSS</div>
+  <div class="skill-bar"><div class="skill-bar-fill" data-percent="90"></div></div>
+
+  <div class="skill-name">JavaScript</div>
+  <div class="skill-bar"><div class="skill-bar-fill" data-percent="85"></div></div>
+
+  <div class="skill-name">React</div>
+  <div class="skill-bar"><div class="skill-bar-fill" data-percent="80"></div></div>
+
+  <div class="skill-name">UX/UI Design</div>
+  <div class="skill-bar"><div class="skill-bar-fill" data-percent="75"></div></div>
+</div>
+
+  </section>  <section id="contact">
+    <h2>Contact Me</h2>
+    <form aria-label="Contact form" onsubmit="event.preventDefault(); alert('Thank you for your message!');">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your full name" required /><label for="email">Email</label>
+  <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+  <label for="message">Message</label>
+  <textarea id="message" name="message" rows="4" placeholder="Write your message here..." required></textarea>
+
+  <button type="submit" aria-label="Send message">Send</button>
+</form>
+
+  </section>
+</main><footer>
+  &copy; 2024 Alex Doe. All rights reserved.
+</footer><script>
+  // Smooth scrolling with active link highlight
+  const navLinks = document.querySelectorAll("nav ul li a");
+  navLinks.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      navLinks.forEach(lnk => lnk.classList.remove("active"));
+      link.classList.add("active");
+      const target = document.querySelector(link.getAttribute("href"));
+      target.scrollIntoView({behavior:"smooth"});
+    });
+  });
+
+  // Reveal sections on scroll
+  function revealSections() {
+    document.querySelectorAll("section").forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if(rect.top < window.innerHeight - 150) {
+        section.classList.add("visible");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", revealSections);
+  window.addEventListener("load", () => {
+    revealSections();
+    animateSkillBars();
+  });
+
+  // Animate skill bars from 0 to data-percent
+  function animateSkillBars() {
+    const bars = document.querySelectorAll(".skill-bar-fill");
+    bars.forEach(bar => {
+      if(bar.style.width==="") {
+        const percent = bar.getAttribute("data-percent");
+        bar.style.width = percent + "%";
+      }
+    });
+  }
+
+  // Canvas Floating dots and connecting lines animation with moving waves behind
+
+  const canvas = document.getElementById("background-canvas");
+  const ctx = canvas.getContext("2d");
+  let width, height;
+  let points = [];
+
+  // Wave parameters
+  const waves = [
+    { amplitude: 15, wavelength: 180, speed: 0.015, phase: 0, color: 'rgba(172, 140, 221, 0.18)' },
+    { amplitude: 10, wavelength: 140, speed: 0.02, phase: 0, color: 'rgba(172, 140, 221, 0.12)' },
+    { amplitude: 7, wavelength: 100, speed: 0.025, phase: 0, color: 'rgba(172, 140, 221, 0.08)' }
+  ];
+
+  class Point {
+    constructor(x, y, vx, vy) {
+      this.x = x;
+      this.y = y;
+      this.vx = vx;
+      this.vy = vy;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if(this.x < 0 || this.x > width) this.vx = -this.vx;
+      if(this.y < 0 || this.y > height) this.vy = -this.vy;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(172, 140, 221, 0.7)';
+      ctx.fill();
+    }
+  }
+
+  // Draw sine waves background
+  function drawWaves(time) {
+    waves.forEach(wave => {
+      wave.phase += wave.speed;
+      ctx.beginPath();
+      ctx.moveTo(0, height / 2);
+      for(let x = 0; x <= width; x++) {
+        let y = height / 2 + wave.amplitude * Math.sin((x / wave.wavelength * 2 * Math.PI) + wave.phase);
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(width, height);
+      ctx.lineTo(0, height);
+      ctx.closePath();
+      ctx.fillStyle = wave.color;
+      ctx.fill();
+    });
+  }
+
+  function connectPoints() {
+    for(let i = 0; i < points.length; i++) {
+      for(let j = i+1; j < points.length; j++) {
+        let dist = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
+        if(dist < 150) {
+          ctx.beginPath();
+          const opacity = 1 - dist / 150;
+          ctx.strokeStyle = `rgba(172, 140, 221, ${opacity * 0.5})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(points[i].x, points[i].y);
+          ctx.lineTo(points[j].x, points[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function initCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    points = [];
+    let count = Math.floor(width / 30);
+    for(let i = 0; i < count; i++) {
+      points.push(new Point(
+        Math.random() * width,
+        Math.random() * height,
+        (Math.random() * 0.4 -
